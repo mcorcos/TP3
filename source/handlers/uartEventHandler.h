@@ -1,10 +1,8 @@
 /***************************************************************************//**
-  @file     board.h
-  @brief    Board management
+  @file     uartEventHandler.h
+  @brief    UART event handler
   @author   G4
-  @date 	Oct 23, 2023
- 
- ******************************************************************************/
+*****************************************************************************/
 
 #ifndef HANDLERS_UARTEVENTHANDLER_H_
 #define HANDLERS_UARTEVENTHANDLER_H_

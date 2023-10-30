@@ -1,7 +1,6 @@
 /***************************************************************************//**
-  @file     gpio.h
-  @brief    Simple GPIO Pin services, similar to Arduino
-  @author   Nicol�s Magliola
+  @file     IRQ.h
+  @brief    IRQ
  ******************************************************************************/
 
 #ifndef _GPIO_H_

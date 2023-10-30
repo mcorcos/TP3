@@ -1,9 +1,7 @@
 /***************************************************************************//**
-  @file     board.h
-  @brief    Board management
+  @file     eventsHandler.h
+  @brief    Event handler
   @author   G4
-  @date 	Oct 23, 2023
- 
  ******************************************************************************/
 
 #ifndef HANDLERS_EVENTSHANDLER_H_

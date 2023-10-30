@@ -1,9 +1,7 @@
 /***************************************************************************//**
-  @file     board.h
-  @brief    Board management
+  @file     fsmtable.h
+  @brief    Table for FSM
   @author   G4
-  @date 	Oct 23, 2023
- 
  ******************************************************************************/
 
 #ifndef FSM_FSMTABLE_H_
@@ -24,7 +22,7 @@
  /*******************************************************************************
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
-typedef enum {NO_EVENT , UART_EVENT , ADC_EVENT ,STR2BIT_EVENT , MOD_FSK_EVENT,DAC_EVENT , DEMOD_FSK_EVENT,BIT2STR_EVENT , WORD_SENDED_EVENT  }EVENT_ENUM;
+typedef enum {NO_EVENT , UART_EVENT , ADC_EVENT , STR2BIT_EVENT , MOD_FSK_EVENT, DAC_EVENT , DEMOD_FSK_EVENT,BIT2STR_EVENT , WORD_SENDED_EVENT  }EVENT_ENUM;
 /*******************************************************************************
  * VARIABLE PROTOTYPES WITH GLOBAL SCOPE
  ******************************************************************************/

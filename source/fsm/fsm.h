@@ -1,9 +1,7 @@
 /***************************************************************************//**
-  @file     board.h
-  @brief    Board management
+  @file     fsm.h
+  @brief    Finite State Machine
   @author   G4
-  @date 	Oct 23, 2023
- 
  ******************************************************************************/
 
 #ifndef FSM_FSM_H_

@@ -1,6 +1,6 @@
 /***************************************************************************//**
-  @file     board.h
-  @brief    Board management
+  @file     fsmtable.h
+  @brief    Table for FSM
   @author   G4
  ******************************************************************************/
 
@@ -69,7 +69,7 @@ static void do_nothing(void);
 
 STATE strToBitstream[]=
 {
-	{STR2BIT_EVENT,mod_fsk,do_nothing},
+	{STR2BIT_EVENT,mod_fsk,transmitBitstream},
 	{FIN_TABLA,idle,do_nothing}
 };
 

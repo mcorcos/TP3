@@ -1,6 +1,6 @@
 /***************************************************************************//**
-  @file     board.h
-  @brief    Board management
+  @file     bitstreamEventHandler.c
+  @brief    Bitstream event handler
   @author   G4
  ******************************************************************************/
 
@@ -70,3 +70,8 @@ void getStr2BitsreamEvent(uint8_t *ev){
  	}
 
  }
+
+
+void transmitBitstream (){
+	sendCharacter(bitstream);
+}

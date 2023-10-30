@@ -1,21 +1,22 @@
 /***************************************************************************//**
-  @file     fsm.c
-  @brief    Finite State Machine
+  @file     moduladorHandler.h
+  @brief    Handler del modulador
   @author   G4
  ******************************************************************************/
+
+#ifndef HANDLERS_MODULADORHANDLER_H_
+#define HANDLERS_MODULADORHANDLER_H_
 
 
 /*******************************************************************************
  * INCLUDE HEADER FILES
  ******************************************************************************/
-#include "fsm.h"
-#include <stdio.h>
+#include <stdint.h>
 
 
  /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
- 
  
 
  /*******************************************************************************
@@ -29,19 +30,7 @@
 /*******************************************************************************
  * FUNCTION PROTOTYPES WITH GLOBAL SCOPE
  ******************************************************************************/
- 
- 
+void initModuladorHandler();
+void getFSKEvent(uint8_t* event);
 
-STATE* fsm(STATE *p_tabla_estado,BYTE evento_actual)
-{
-
-   	while (p_tabla_estado -> evento != evento_actual && p_tabla_estado -> evento != FIN_TABLA)//Recorre las tablas de estado
-		++p_tabla_estado;
-	(*p_tabla_estado -> p_rut_accion)();          /*rutina de accion corresondiente*/
-	p_tabla_estado=p_tabla_estado -> proximo_estado;   /*siguiente estado*/
-
-
-      return(p_tabla_estado);
-
-}
-
+#endif /*  HANDLERS_MODULADORHANDLER_H_ */

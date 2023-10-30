@@ -1,6 +1,6 @@
 /***************************************************************************//**
-  @file     board.h
-  @brief    Board management
+  @file     eventsHandler.c
+  @brief    Event handler
   @author   G4
  ******************************************************************************/
 
@@ -31,5 +31,6 @@ uint8_t getEvent(void){
 	uint8_t event = NO_EVENT;
 	getUartEvent(&event);
 	getStr2BitsreamEvent(&event);
+	getFSKEvent(&event);
 	return event;
  }

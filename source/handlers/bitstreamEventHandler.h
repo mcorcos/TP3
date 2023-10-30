@@ -1,10 +1,8 @@
 /***************************************************************************//**
-  @file     board.h
-  @brief    Board management
+  @file     bitstreamEventHandler.h
+  @brief    Bitstream event handler
   @author   G4
-  @date 	Oct 24, 2023
- 
- ******************************************************************************/
+******************************************************************************/
 
 #ifndef HANDLERS_BITSTREAMEVENTHANDLER_H_
 #define HANDLERS_BITSTREAMEVENTHANDLER_H_
@@ -36,4 +34,5 @@
  ******************************************************************************/
  void stringToBitstream(const char *input)  ;
  void getStr2BitsreamEvent(uint8_t *ev);
+ void transmitBitstream ();
 #endif /*  HANDLERS_BITSTREAMEVENTHANDLER_H_ */

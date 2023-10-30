@@ -1,6 +1,6 @@
 /***************************************************************************//**
-  @file     board.h
-  @brief    Board management
+  @file     uartEventHandler.c
+  @brief    UART event handler
   @author   G4
  ******************************************************************************/
 
@@ -23,9 +23,8 @@
 //Para chequear si se ingreso algo por teclado.
 static tim_id_t timerTx;
 static tim_id_t timerRx;
-static char bufferWord[256] = "A";
 static bool	wordReceivedUart = false;
-static uint16_t wordIterator = 0;
+static char character;
  /*******************************************************************************
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
@@ -55,7 +54,7 @@ void initUartHandler(void){
 void sendWord(void){ //callback para transmision de datos por UART
 	package_t package;
 	uint16_t size = 5; //dummy
-	package.data[0] = &bufferWord;
+	//package.data[0] = &bufferWord;
 	sendPackage(package,size);
 }
 
@@ -68,11 +67,8 @@ void callbackTimerRx(void){ //Callback para recepecion de datos de UART
 
 		package_t package = receivePackage();
 
-		bufferWord[wordIterator++] = package.data[0];
-		if((package.data[0] == '\n') || package.data[0] == '\r'){ //se termino el string
-			wordReceivedUart = true;
-			wordIterator = 0;
-		}
+		character = package.data[0];
+		wordReceivedUart = true;
 	}
 }
 
@@ -82,7 +78,7 @@ void callbackTimerTx(void){ //Callback para recepecion de datos de UART
 	package_t package;
 	uint16_t size = 1; //dummy
     for (int i = 0; i < size; i++) {
-        package.data[i] = bufferWord[i];
+        package.data[i] = character;
     }
 
 //	sendPackage(package,size);
@@ -102,7 +98,7 @@ void cleanUartEventFlag(void){
 
 
 void createbitstream(void){
-	stringToBitstream(bufferWord);
+	stringToBitstream(character);
 }
 
 
