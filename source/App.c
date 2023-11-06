@@ -20,6 +20,11 @@
 #include "handlers/uartEventHandler.h"
 #include "fsm/fsm.h"	    /*FSM engine (interprete)*/
 #include "fsm/fsmtable.h"   /*FSM Table*/
+#include "drivers/drv_DAC.h"
+#include "drivers/drv_ADC.h"
+#include "handlers/demoduladorHandler.h"
+#include "handlers/moduladorHandler.h"
+#include "handlers/eventsHandler.h"
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
@@ -69,9 +74,12 @@ void App_Init (void)
 
 	init_K64Leds(); //init drv de los leds de la kinetis
 	timerInit(); // init de timer
+	initModuladorHandler(); //Init del modulador FSK
 	init_DEVBOARD(); // init de la placa shield creada por el grupo
 	initUART(); //Init UART
 	initUartHandler(); //Init Rx and Tx for UART
+	initDAC(); //Init DAC driver
+	//initADC(recieveADCBitstream);
 
     /* init for FSM */
 

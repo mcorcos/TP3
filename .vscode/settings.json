@@ -18,6 +18,7 @@
         "xloctime": "c",
         "xtree": "c",
         "xutility": "c",
-        "*.ipp": "c"
+        "*.ipp": "c",
+        "drv_uart.h": "c"
     }
 }

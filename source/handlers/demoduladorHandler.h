@@ -1,28 +1,38 @@
-
 /***************************************************************************//**
-  @file     drv_DAC.h
-  @brief    Driver DAC
+  @file     demoduladorHandler.h
+  @brief    Handler del demodulador
   @author   G4
  ******************************************************************************/
-#ifndef DAC_H_
-#define DAC_H_
+
+#ifndef HANDLERS_DEMODULADORHANDLER_H_
+#define HANDLERS_DEMODULADORHANDLER_H_
+
 
 /*******************************************************************************
  * INCLUDE HEADER FILES
  ******************************************************************************/
+#include <stdint.h>
+
 
  /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
+ 
 
  /*******************************************************************************
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
 
 /*******************************************************************************
+ * VARIABLE PROTOTYPES WITH GLOBAL SCOPE
+ ******************************************************************************/
+
+/*******************************************************************************
  * FUNCTION PROTOTYPES WITH GLOBAL SCOPE
  ******************************************************************************/
-void initDAC();
-void send2DAC(double value);
+void initDemoduladorHandler();
+void getFSKDemodEvent(uint8_t* event);
+void recieveADCBitstream(void);
+char recieveCharacter(void);
 
-#endif /*DAC_H_*/
+#endif /*  HANDLERS_DEMODULADORHANDLER_H_ */

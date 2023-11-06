@@ -31,6 +31,7 @@
  * FUNCTION PROTOTYPES WITH GLOBAL SCOPE
  ******************************************************************************/
 void initModuladorHandler();
-void getFSKEvent(uint8_t* event);
+void getFSKModEvent(uint8_t* event);
+void sendCharacter (char* bitstream);
 
 #endif /*  HANDLERS_MODULADORHANDLER_H_ */

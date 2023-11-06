@@ -98,7 +98,7 @@ void cleanUartEventFlag(void){
 
 
 void createbitstream(void){
-	stringToBitstream(character);
+	stringToBitstream(&character);
 }
 
 

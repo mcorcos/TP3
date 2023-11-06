@@ -23,6 +23,9 @@
 #define TIMER_TICK_MS       1
 #define TIMER_MS2TICKS(ms)  ((ms)/TIMER_TICK_MS)
 
+#define TIMER_TICKS_PER_US	10000
+#define TIMER_US_2_TICKS(us)	((us)*TIMER_TICKS_PER_US)
+
 #define TIMER_TICKS_PER_MS	10
 #define TIMER_MS_2_TICKS(ms)	((ms)*TIMER_TICKS_PER_MS)
 

@@ -11,6 +11,8 @@
 #include "eventsHandler.h"
 #include "uartEventHandler.h"
 #include "bitstreamEventHandler.h"
+#include "moduladorHandler.h"
+#include "demoduladorHandler.h"
  /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
@@ -31,6 +33,7 @@ uint8_t getEvent(void){
 	uint8_t event = NO_EVENT;
 	getUartEvent(&event);
 	getStr2BitsreamEvent(&event);
-	getFSKEvent(&event);
+	getFSKModEvent(&event);
+	getFSKDemodEvent(&event);
 	return event;
  }

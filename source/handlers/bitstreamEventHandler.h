@@ -34,5 +34,7 @@
  ******************************************************************************/
  void stringToBitstream(const char *input)  ;
  void getStr2BitsreamEvent(uint8_t *ev);
- void transmitBitstream ();
+ void transmitBitstream (void);
+ void recieveBitstream (void);
+ 
 #endif /*  HANDLERS_BITSTREAMEVENTHANDLER_H_ */
