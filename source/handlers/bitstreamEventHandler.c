@@ -32,7 +32,7 @@ static bool str2BitsreamComplete = false;
 
 
  void stringToBitstream(const char *input) {
-    int bitIndex = 0;
+    //int bitIndex = 0;
     bitstream[0] = 0;
     /*int i, j;
 

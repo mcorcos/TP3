@@ -9,6 +9,7 @@
  * INCLUDE HEADER FILES
  ******************************************************************************/
 #include "uartEventHandler.h"
+#include "handlers/bitstreamEventHandler.h"
 #include "fsm/fsmtable.h"
 #include "drivers/drv_UART.h"
 #include "timers/timer.h" // Llamo para Init timer

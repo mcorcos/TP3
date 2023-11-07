@@ -32,7 +32,7 @@
 /*******************************************************************************
  * FUNCTION PROTOTYPES WITH GLOBAL SCOPE
  ******************************************************************************/
- void stringToBitstream(const char *input)  ;
+ void stringToBitstream(const char *input);
  void getStr2BitsreamEvent(uint8_t *ev);
  void transmitBitstream (void);
  void recieveBitstream (void);

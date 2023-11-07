@@ -25,16 +25,13 @@
 #include "handlers/demoduladorHandler.h"
 #include "handlers/moduladorHandler.h"
 #include "handlers/eventsHandler.h"
+#include "timers/PIT.h"
+
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
 //ID de UART0
 #define DEFAULT_ID 0
-
-//TIMERS MS DEFINE
-
-//CANTIDADES
-
 
 
 /*******************************************************************************
@@ -74,6 +71,7 @@ void App_Init (void)
 
 	init_K64Leds(); //init drv de los leds de la kinetis
 	timerInit(); // init de timer
+	initPIT();
 	initModuladorHandler(); //Init del modulador FSK
 	init_DEVBOARD(); // init de la placa shield creada por el grupo
 	initUART(); //Init UART

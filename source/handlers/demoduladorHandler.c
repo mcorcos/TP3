@@ -9,7 +9,7 @@
  ******************************************************************************/
 #include <stdint.h>
 #include <stdbool.h>
-#include "timers/timer.h"
+#include "timers/PIT.h"
 #include "drivers/drv_ADC.h"
 #include "handlers/demoduladorHandler.h"
 #include "math.h"
@@ -41,8 +41,6 @@ enum{ADC_IDLE, ADC_RECIEVE};
  * VARIABLE PROTOTYPES WITH GLOBAL SCOPE
  ******************************************************************************/
 static char localBitstream;
-static tim_id_t timerDemodChar;
-static tim_id_t timerHalf0;
 
 static uint8_t bitCounter = 0;
 
@@ -62,8 +60,8 @@ void recieveBit(void);
 
 
 void initDemoduladorHandler(){
-	timerDemodChar = timerGetId();
-	timerHalf0 = timerGetId();
+	//timerDemodChar = timerGetId();
+	//timerHalf0 = timerGetId();
 }
 
 void getFSKDemodEvent(uint8_t* event){
@@ -79,11 +77,11 @@ char recieveCharacter(void){
 
 void recieveADCBitstream(void){
 	demoduladorReady = true;
-	timerStart(timerDemodChar, TIMER_MS2TICKS(2000), TIM_MODE_PERIODIC, recieveBit);
+	//timerStart(timerDemodChar, TIMER_MS2TICKS(2000), TIM_MODE_PERIODIC, recieveBit);
 }
 
 void recieveBit(void){
-	timerStart(timerHalf0, TIMER_MS2TICKS(2000), TIM_MODE_SINGLESHOT, getBitValue);
+	//timerStart(timerHalf0, TIMER_MS2TICKS(2000), TIM_MODE_SINGLESHOT, getBitValue);
 }
 
 void getBitValue(void){
@@ -106,7 +104,7 @@ void getBitValue(void){
 			}
 			if(bitCounter == 11){
 				bitCounter = 0;
-				timerStop(timerDemodChar);
+				//timerStop(timerDemodChar);
 				stateDemod = ADC_IDLE;
 			}
 		}
