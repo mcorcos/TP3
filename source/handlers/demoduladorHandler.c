@@ -60,8 +60,11 @@ void recieveBit(void);
 
 
 void initDemoduladorHandler(){
-	//timerDemodChar = timerGetId();
-	//timerHalf0 = timerGetId();
+/*	timerDemodChar = timerGetId();
+	timerHalf0 = timerGetId();
+	timerStart(timerDemodChar, TIMER_MS2TICKS(2000), TIM_MODE_PERIODIC, recieveBit);
+	timerStart(timerHalf0, TIMER_MS2TICKS(2000), TIM_MODE_SINGLESHOT, getBitValue);*/
+
 }
 
 void getFSKDemodEvent(uint8_t* event){
@@ -77,11 +80,9 @@ char recieveCharacter(void){
 
 void recieveADCBitstream(void){
 	demoduladorReady = true;
-	//timerStart(timerDemodChar, TIMER_MS2TICKS(2000), TIM_MODE_PERIODIC, recieveBit);
 }
 
 void recieveBit(void){
-	//timerStart(timerHalf0, TIMER_MS2TICKS(2000), TIM_MODE_SINGLESHOT, getBitValue);
 }
 
 void getBitValue(void){

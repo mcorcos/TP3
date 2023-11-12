@@ -34,6 +34,6 @@ uint8_t getEvent(void){
 	getUartEvent(&event);
 	getStr2BitsreamEvent(&event);
 	getFSKModEvent(&event);
-	getFSKDemodEvent(&event);
+	//getFSKDemodEvent(&event);
 	return event;
  }

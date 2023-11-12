@@ -46,7 +46,9 @@ void initUartHandler(void){
 	timerTx = timerGetId();//inicio los timers de UART
 	timerRx = timerGetId();
 
-	timerStart(timerTx, TIMER_MS2TICKS(TIMER_MS), TIM_MODE_PERIODIC, callbackTimerTx); //info para los timers
+	//configTimersPIT(2, 1, callbackTimerTx);
+	//startTimerPIT(2);
+	//timerStart(timerTx, TIMER_MS2TICKS(TIMER_MS), TIM_MODE_PERIODIC, callbackTimerTx); //info para los timers
 	timerStart(timerRx, TIMER_MS2TICKS(TIMER_MS), TIM_MODE_PERIODIC, callbackTimerRx); //info para los timers
 }
 
@@ -78,11 +80,11 @@ void callbackTimerTx(void){ //Callback para recepecion de datos de UART
 
 	package_t package;
 	uint16_t size = 1; //dummy
-    for (int i = 0; i < size; i++) {
-        package.data[i] = character;
-    }
+    //for (int i = 0; i < size; i++) {
+	package.data[0] = 'h';
+    //}
 
-//	sendPackage(package,size);
+	sendPackage(package,size);
 
 }
 

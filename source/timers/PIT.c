@@ -48,7 +48,8 @@ void initPIT(void){
 	// Clock Gating for PIT
 	sim_ptr->SCGC6 |= SIM_SCGC6_PIT_MASK;
 	// PIT Module enable
-	PIT_ptr->MCR = 0;
+	PIT_ptr->MCR &= ~(PIT_MCR_MDIS_MASK | PIT_MCR_FRZ_MASK);
+	PIT_ptr->MCR |= (PIT_MCR_MDIS(0) | PIT_MCR_FRZ(1));
 }
 
 void configTimersPIT(uint8_t id, uint16_t freq, void(*callback)(void)){
@@ -75,18 +76,16 @@ void configTimersPIT(uint8_t id, uint16_t freq, void(*callback)(void)){
 			break;
 	}
 
-	PIT_ptr->CHANNEL[id].LDVAL = (FREQ_2_TICKS(freq));
+	PIT_ptr->CHANNEL[id].LDVAL = (PIT_LDVAL_TSV( FREQ_2_TICKS(freq - 1)));
 
-	PIT_ptr->CHANNEL[id].TCTRL = 0x00;
+	PIT_ptr->CHANNEL[id].TCTRL &= ~(PIT_TCTRL_CHN_MASK);
+	PIT_ptr->CHANNEL[id].TCTRL |=(PIT_TCTRL_CHN(0));
 
-	//PIT_ptr->CHANNEL[id].TCTRL &= ~(PIT_TCTRL_CHN_MASK);
-	//PIT_ptr->CHANNEL[id].TCTRL |=(PIT_TCTRL_CHN(0));
+	PIT_ptr->CHANNEL[id].TCTRL &= ~(PIT_TCTRL_TIE_MASK);
+	PIT_ptr->CHANNEL[id].TCTRL |=(PIT_TCTRL_TIE(0));
 
-	//PIT_ptr->CHANNEL[id].TCTRL &= ~(PIT_TCTRL_TIE_MASK);
-	//PIT_ptr->CHANNEL[id].TCTRL |=(PIT_TCTRL_TIE(0));
-
-	//PIT_ptr->CHANNEL[id].TCTRL &= ~(PIT_TCTRL_TEN_MASK);
-	//PIT_ptr->CHANNEL[id].TCTRL |=(PIT_TCTRL_TEN(0));
+	PIT_ptr->CHANNEL[id].TCTRL &= ~(PIT_TCTRL_TEN_MASK);
+	PIT_ptr->CHANNEL[id].TCTRL |=(PIT_TCTRL_TEN(0));
 }
 
 void PIT0_IRQHandler(void){

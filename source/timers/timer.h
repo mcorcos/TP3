@@ -20,11 +20,9 @@
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
 
-#define TIMER_TICKS_MS       1
-#define TIMER_MS2TICKS(ms)  ((ms)*TIMER_TICKS_MS)
+#define TIMER_TICK_MS       0.01 //MS
+#define TIMER_MS2TICKS(ms)  ((ms)/TIMER_TICK_MS)
 
-#define TIMER_TICKS_US	1/1000
-#define TIMER_US2TICKS(us)	((us)*TIMER_TICKS_US)
 
 #define TIMER_TICKS_PER_MS	1
 #define TIMER_MS_2_TICKS(ms)	((ms)*TIMER_TICKS_PER_MS)

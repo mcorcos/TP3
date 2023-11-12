@@ -52,7 +52,7 @@ bool SysTick_Init (void (*funcallback)(void))
 #endif // DEVELOPMENT_MODE
     {
         SysTick->CTRL = 0x00;
-        SysTick->LOAD =SYSTICK_LOAD_INIT; //100000-1;//
+        SysTick->LOAD = 1000 - 1;//100000-1; 1US
         SysTick->VAL  = 0x00;
         SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk;
 

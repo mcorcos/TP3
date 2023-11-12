@@ -34,13 +34,13 @@ static bool str2BitsreamComplete = false;
  void stringToBitstream(const char *input) {
     //int bitIndex = 0;
     bitstream[0] = 0;
-    /*int i, j;
+    int i, j;
 
     for (int i = 0; i < 8; i++) {
         if (input[0] & (1 << i)) {
             bitstream[0] |= (1 << (7 - i));
         }
-    }*/
+    }
 	bitstream[0] = input[0];
 
     str2BitsreamComplete = true;
