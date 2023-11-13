@@ -55,7 +55,7 @@ static uint8_t evento;
                         LOCAL FUNCTION PROTOTYPES
  *******************************************************************************
  ******************************************************************************/
-
+void demodCallback(void);
 /*******************************************************************************
  *******************************************************************************
 						GLOBAL FUNCTION DEFINITIONS
@@ -71,13 +71,13 @@ void App_Init (void)
 
 	init_K64Leds(); //init drv de los leds de la kinetis
 	timerInit(); // init de timer
-	initPIT();
+	//initPIT();
 	initModuladorHandler(); //Init del modulador FSK
+	//initDemoduladorHandler();
 	init_DEVBOARD(); // init de la placa shield creada por el grupo
 	initUART(); //Init UART
 	initUartHandler(); //Init Rx and Tx for UART
 	initDAC(); //Init DAC driver
-	//initADC(recieveADCBitstream);
 
     /* init for FSM */
 
@@ -92,6 +92,9 @@ void App_Run (void)
 		evento = getEvent();
 		p2state=fsm(p2state,evento);      //Se lo paso a la maquina de estados
 }
+
+
+
 
 
 

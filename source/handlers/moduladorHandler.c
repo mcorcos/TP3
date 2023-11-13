@@ -21,8 +21,13 @@
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
 
+#define NUM_POINTS	83
 
-#define NUM_POINTS	100
+#define FREQ0 2400.0
+#define FREQ1 1200.0
+#define TIMER0 ((1/FREQ0)/NUM_POINTS)*1000000.0
+#define TIMER1 ((1/FREQ1)/NUM_POINTS)*1000000.0
+#define TIMERCHAR (1/FREQ1)*1000000.0
 
 #define BITSTREAM_LEN 8
 #define WORD_LEN 11
@@ -34,7 +39,7 @@
 enum{START_SENT, CHARACTER_SENT, PARITY_SENT, STOP_SENT};
 enum{SEND_BITSTREAM, IDLE};
 enum{SEND0, SEND1, NOTHING};
-enum{TIMERCHAR, TIMER0, TIMER1, TIMERHALF0};
+
 
 /*******************************************************************************
  * VARIABLE PROTOTYPES WITH GLOBAL SCOPE
@@ -42,12 +47,11 @@ enum{TIMERCHAR, TIMER0, TIMER1, TIMERHALF0};
 
 static char localBitstream;
 static char  completeWord[WORD_LEN];
-static double seno_values[NUM_POINTS];
+static double seno_values1[NUM_POINTS];
+static double seno_values0[NUM_POINTS];
 static uint8_t bitCounter = 0;
 static uint16_t entryCounter = 0;
-static uint16_t entryCounterAux = 0;
 static uint8_t oneCounter = 0;
-static uint8_t flagState = STOP_SENT;
 static uint8_t flagSend = NOTHING;
 static uint8_t modemStatus = IDLE;
 
@@ -57,7 +61,7 @@ static tim_id_t timerChar;
 static tim_id_t timerSend0;
 static tim_id_t timerSend1;
 
-static uint16_t value;
+static double value;
 
 /*******************************************************************************
  * FUNCTION PROTOTYPES WITH LOCAL SCOPE
@@ -82,12 +86,9 @@ void initModuladorHandler(){
 	timerSend0 = timerGetId();
 	timerSend1 = timerGetId();
 
-	timerStart(timerChar,83, TIM_MODE_PERIODIC, sendBit);
-	timerStart(timerSend0, 4, TIM_MODE_PERIODIC, send0);
-	timerStart(timerSend1,8, TIM_MODE_PERIODIC, send1);
-
-
-
+	timerStart(timerChar, TIMER_US2TICKS(TIMERCHAR), TIM_MODE_PERIODIC, sendBit);
+	//timerStart(timerSend0, TIMER_US2TICKS(TIMER1), TIM_MODE_PERIODIC, send0);
+	//timerStart(timerSend1, TIMER_US2TICKS(TIMER1), TIM_MODE_PERIODIC, send1);
 }
 
 
@@ -104,17 +105,20 @@ void createLookUpTableSin(){
     for (int i = 0; i < NUM_POINTS; i++) {
         double angle = ((double)i / (NUM_POINTS - 1)) * 2 * M_PI; // Ángulo en radianes
         double sin_value = (sin(angle) + 1.0) * (amplitude / 2.0); // Cálculo del valor del seno escalado
-        seno_values[i] = sin_value;
+        seno_values1[i] = sin_value;
     }
+    for (int i = 0; i < NUM_POINTS; i++) {
+	   double angle = ((double)i / (NUM_POINTS - 1)) * 4 * M_PI; // Ajuste para dos períodos (de 0 a 4*pi)
+	   double sin_value = (sin(angle) + 1.0) * (amplitude / 2.0); // Cálculo del valor del seno escalado
+	   seno_values0[i] = sin_value;
+   }
 }
 
 void createWord(char  bitstream){
-
 	completeWord[0] = '0';
 	decimalToBinaryArrayWithPadding( bitstream , &completeWord[1] );
 	completeWord[WORD_LEN - 2] = parity();
 	completeWord[WORD_LEN - 1] = '1';
-
 }
 
 
@@ -167,62 +171,59 @@ void sendCharacter (char* bitstream){
 
 void sendBit(void){
 	if(modemStatus == SEND_BITSTREAM){
+		if(!timerExpired(timerSend0)){
+			timerStop(timerSend0);
+			entryCounter = 0;
+		}
 		flagSend = NOTHING;
-		if(completeWord[bitCounter] == '1'){
+		if(completeWord[bitCounter-1] == '1'){
 			flagSend = SEND1;
+			timerStart(timerSend0, TIMER_US2TICKS(TIMER1), TIM_MODE_PERIODIC, send1);
 		}
-		else{
+		else if(completeWord[bitCounter-1] == '0'){
 			flagSend = SEND0;
+			timerStart(timerSend0, TIMER_US2TICKS(TIMER1), TIM_MODE_PERIODIC, send0);
 		}
-
 	}
-	else{
+	else if(modemStatus == IDLE){
+		flagSend = SEND1;
+		timerStart(timerSend0, TIMER_US2TICKS(TIMER1), TIM_MODE_PERIODIC, send1);
 	}
 }
 
 void send0(){
-
 	if(flagSend == SEND0){
-
 		send2DAC(getSinValue());
-
 	}
-
 }
 
 void send1(){
-
 	if(flagSend == SEND1){
 		send2DAC(getSinValue());
 	}
-
 }
 
 
 double getSinValue(void){
-
-	value = seno_values[entryCounter];
-	entryCounter++;
 	if(flagSend == SEND0){
-		if(entryCounter == 18){ //numpoint*1.83
-				entryCounter = 0;
-				flagSend = NOTHING;
-				bitCounter++;
-		}
+		value = seno_values0[entryCounter];
 	}
 	else{
-		if(entryCounter == NUM_POINTS){
+		value = seno_values1[entryCounter];
+	}
+	entryCounter++;
+	if(entryCounter == NUM_POINTS){
+		timerStop(timerSend0);
 		entryCounter = 0;
 		flagSend = NOTHING;
-		bitCounter++;
+		if(modemStatus == SEND_BITSTREAM){
+			bitCounter++;
+			if(bitCounter == 11){
+				modemStatus = IDLE;
+				bitCounter = 0;
+			}
 		}
 	}
-
-	if(bitCounter == 11){
-		modemStatus = IDLE;
-	}
-
-
 	return value;
 }
 

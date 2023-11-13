@@ -17,7 +17,7 @@
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
 
-#if TIMER_TICKS_MS != (500U/(10000*SYSTICK_ISR_FREQUENCY_HZ))
+#if TIMER_TICKS_MS != (500U/(1000*SYSTICK_ISR_FREQUENCY_HZ))
 #error Las frecuencias no coinciden!!
 #endif // TIMER_TICK_MS != (1000U/SYSTICK_ISR_FREQUENCY_HZ)
 

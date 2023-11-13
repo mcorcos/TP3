@@ -9,7 +9,7 @@
  ******************************************************************************/
 #include <stdint.h>
 #include <stdbool.h>
-#include "timers/PIT.h"
+#include "timers/timer.h"
 #include "drivers/drv_ADC.h"
 #include "handlers/demoduladorHandler.h"
 #include "math.h"
@@ -19,11 +19,12 @@
  /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
-#define NUM_POINTS 1000
-#define FREQ0 2200.0
+#define NUM_POINTS 83
+#define FREQ0 2400.0
 #define FREQ1 1200.0
-#define TIMERHALF0 ((((1/FREQ0)/NUM_POINTS)*1000.0)/2)
-#define TIMERDEMODCHAR (1/FREQ1)*1000.0
+#define TIMERHALF0 (((1/FREQ1)*1000000.0)/4)
+//#define TIMERDEMODCHAR (1/FREQ1)*1000.0
+#define TIMERDEMODCHAR (1/FREQ1)*1000000.0
 
 #define ZERO_ERROR 0.2
 #define ZERO 1.65
@@ -51,6 +52,10 @@ static bool startBitFlag = false;
 
 static uint8_t auxPrevBit;
 
+static tim_id_t timerDemodChar;
+static tim_id_t timerHalf0;
+
+
 
 /*******************************************************************************
  * FUNCTION PROTOTYPES WITH LOCAL SCOPE
@@ -60,10 +65,10 @@ void recieveBit(void);
 
 
 void initDemoduladorHandler(){
-/*	timerDemodChar = timerGetId();
+	timerDemodChar = timerGetId();
 	timerHalf0 = timerGetId();
-	timerStart(timerDemodChar, TIMER_MS2TICKS(2000), TIM_MODE_PERIODIC, recieveBit);
-	timerStart(timerHalf0, TIMER_MS2TICKS(2000), TIM_MODE_SINGLESHOT, getBitValue);*/
+	timerStart(timerDemodChar, TIMER_US2TICKS(TIMERDEMODCHAR), TIM_MODE_PERIODIC, recieveBit);
+	timerStart(timerHalf0, TIMER_US2TICKS(TIMERHALF0), TIM_MODE_SINGLESHOT, getBitValue);
 
 }
 
@@ -111,4 +116,3 @@ void getBitValue(void){
 		}
 	}
 }
-

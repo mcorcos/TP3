@@ -15,25 +15,22 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
 
-#define TIMER_TICK_MS       0.01 //MS
+#define TIMER_TICK_MS       0.01
 #define TIMER_MS2TICKS(ms)  ((ms)/TIMER_TICK_MS)
-
-
-#define TIMER_TICKS_PER_MS	1
-#define TIMER_MS_2_TICKS(ms)	((ms)*TIMER_TICKS_PER_MS)
+#define TIMER_TICK_US       10
+#define TIMER_US2TICKS(us)  ((us)/TIMER_TICK_US)
 
 #define TIMERS_MAX_CANT     16
 #define TIMER_INVALID_ID    255
 
-
 /*******************************************************************************
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
+
 
 // Timer Modes
 enum { TIM_MODE_SINGLESHOT, TIM_MODE_PERIODIC, CANT_TIM_MODES };

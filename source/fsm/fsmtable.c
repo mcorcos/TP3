@@ -13,6 +13,7 @@
 #include "fsm.h"
 #include "handlers/uartEventHandler.h"
 #include "handlers/bitstreamEventHandler.h"
+#include "handlers/demoduladorHandler.h"
 
 
  /*******************************************************************************
@@ -60,7 +61,7 @@ static void do_nothing(void);
  STATE idle[]=
 {
   	{UART_EVENT,strToBitstream,createbitstream},
-	{ADC_EVENT,demod_fsk,recieveBitstream},
+	{ADC_EVENT,demod_fsk,do_nothing},
   	{FIN_TABLA,idle,do_nothing} //SEND 1 CUANDO ESTE EN IDLE!!
 };
 
