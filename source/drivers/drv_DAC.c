@@ -34,6 +34,9 @@ static SIM_Type* sim_ptr = SIM;
 /*******************************************************************************
  * FUNCTION PROTOTYPES WITH GLOBAL SCOPE
  ******************************************************************************/
+//init
+void initDAC(void){
+
 	// Clock Gating
 	sim_ptr->SCGC2 |= SIM_SCGC2_DAC0_MASK;
 
